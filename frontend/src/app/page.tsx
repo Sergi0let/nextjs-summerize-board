@@ -1,27 +1,20 @@
-import { Button } from "@/components/ui/button";
+import { FeatureSection } from "@/components/custom/FeaturesSection";
+import HeroSection from "@/components/custom/HeroSection";
+import { getHomePageData } from "@/data/loaders";
 
-async function getStrapiData(path: string) {
-  const baseUrl = "http://localhost:1337/";
-  try {
-    const response = await fetch(baseUrl + path);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+const blockComponents = {
+  "layout.hero-section": HeroSection,
+  "layout.features-section": FeatureSection,
+};
+
+function blockRenderer(block: any) {
+  const Component =
+    blockComponents[block.__component as keyof typeof blockComponents];
+  return Component ? <Component key={block.id} data={block} /> : null;
 }
 
 export default async function Home() {
-  const strapiData = await getStrapiData("api/home-page");
-  const { Title, description } = strapiData.data;
-  console.log(Title, description);
-  return (
-    <div>
-      <Button size={"sm"} className="w-full">
-        Button
-      </Button>
-      <h1>{Title}</h1>
-      <p>{description}</p>
-    </div>
-  );
+  const strapiData = await getHomePageData();
+  const { blocks } = strapiData?.data || [];
+  return <main>{blocks.map(blockRenderer)}</main>;
 }
