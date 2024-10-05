@@ -1,6 +1,8 @@
 "use client";
 
+import { loginUserAction } from "@/data/actions/auth-actions";
 import Link from "next/link";
+import { useFormState } from "react-dom";
 
 import {
   Card,
@@ -11,13 +13,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { StrapiErrors } from "@/components/custom/StrapiErrors";
+import { ZodErrors } from "@/components/custom/ZodErrors";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SubmitButton } from "../custom/SubmitButton";
 
-export default function SigninForm() {
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  data: null,
+  message: null,
+};
+
+export function SigninForm() {
+  const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
   return (
     <div className="w-full max-w-md">
-      <form>
+      <form action={formAction}>
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
@@ -34,6 +47,7 @@ export default function SigninForm() {
                 type="text"
                 placeholder="username or email"
               />
+              <ZodErrors error={formState?.zodErrors?.identifier} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
@@ -43,14 +57,20 @@ export default function SigninForm() {
                 type="password"
                 placeholder="password"
               />
+              <ZodErrors error={formState.zodErrors?.password} />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <button className="w-full">Sign In</button>
+            <SubmitButton
+              className="w-full"
+              text="Sign In"
+              loadingText="Loading"
+            />
+            <StrapiErrors error={formState?.strapiErrors} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?
+          Don&quot;t have an account?
           <Link className="underline ml-2" href="signup">
             Sign Up
           </Link>

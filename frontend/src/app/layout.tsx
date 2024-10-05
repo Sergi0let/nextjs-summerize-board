@@ -31,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const globalData = await getGlobalPageData();
-  console.dir(globalData.data.header, { depth: null });
   return (
     <html lang="en">
       <body
@@ -39,8 +38,8 @@ export default async function RootLayout({
       >
         <Header data={globalData.data.header} />
         <div>{children}</div>
+        <Footer data={globalData.data.footer} />
       </body>
-      <Footer data={globalData.data.footer} />
     </html>
   );
 }
