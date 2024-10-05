@@ -33,7 +33,7 @@ export default function HeroSection({ data }: Readonly<HeroSectionProps>) {
       <StrapiImage
         src={image.url}
         alt="background"
-        className="absolute inset-0 object-cover w-full h-full"
+        className="absolute inset-0 object-cover w-full h-full aspect/16:9"
         width={1920}
         height={1080}
       />
