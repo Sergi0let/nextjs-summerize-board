@@ -57,7 +57,7 @@ export function SigninForm() {
                 type="password"
                 placeholder="password"
               />
-              <ZodErrors error={formState.zodErrors?.password} />
+              <ZodErrors error={formState?.zodErrors?.password} />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
