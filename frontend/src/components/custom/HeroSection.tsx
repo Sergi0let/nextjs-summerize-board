@@ -1,3 +1,4 @@
+import { getUserMeLoader } from "@/data/services/get-user-me-loader";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { StrapiImage } from "./StrapiImage";
@@ -25,8 +26,12 @@ export interface HeroSectionProps {
   };
 }
 
-export default function HeroSection({ data }: Readonly<HeroSectionProps>) {
+export default async function HeroSection({
+  data,
+}: Readonly<HeroSectionProps>) {
   const { heading, subHeading, link, image } = data;
+  const user = await getUserMeLoader();
+  const linkUrl = user.ok ? "dashboard" : link.url;
 
   return (
     <header className="relative h-[600px] overflow-hidden">
@@ -49,7 +54,7 @@ export default function HeroSection({ data }: Readonly<HeroSectionProps>) {
           variant={"secondary"}
           className="mt-8 inline-flex items-center justify-center px-6 py-3 text-base font-bold"
         >
-          <Link href={link.url}>{link.text}</Link>
+          <Link href={linkUrl}>{user.ok ? "Go to Dashboard" : link.text}</Link>
         </Button>
       </div>
     </header>

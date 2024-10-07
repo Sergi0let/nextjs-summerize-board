@@ -7,6 +7,7 @@ const blockComponents = {
   "layout.features-section": FeatureSection,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function blockRenderer(block: any) {
   const Component =
     blockComponents[block.__component as keyof typeof blockComponents];
