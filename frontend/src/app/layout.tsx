@@ -1,5 +1,6 @@
 import { Footer } from "@/components/custom/Footer";
 import { Header } from "@/components/custom/Header";
+import { Toaster } from "@/components/ui/sonner";
 import { getGlobalPageData, getGlobalPageMetadata } from "@/data/loaders";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -36,6 +37,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster position="bottom-center" />
         <Header data={globalData.data.header} />
         <div>{children}</div>
         <Footer data={globalData.data.footer} />
