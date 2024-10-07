@@ -7,14 +7,8 @@ import { getAuthToken } from "./get-token";
 // });
 const query = qs.stringify({
   populate: {
-    on: {
-      "layout.hero-section": {
-        populate: {
-          image: {
-            fields: ["url", "alternativeText"],
-          },
-        },
-      },
+    image: {
+      fields: ["url", "alternativeText"],
     },
   },
 });
