@@ -13,7 +13,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "/hospitable-sunshine-11be984e09.media.strapiapp.com",
+        hostname: "hospitable-sunshine-11be984e09.media.strapiapp.com",
       },
     ],
   },

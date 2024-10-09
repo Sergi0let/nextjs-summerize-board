@@ -54,7 +54,7 @@ export async function Header({ data }: Readonly<HeaderProps>) {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex flex-col sm:flex-row sm:justify-between gap-2 items-center px-4 py-3 bg-white dark:bg-gray-800 shadow-lg rounded-xl sm:rounded-none dark:shadow-gray-900">
       <div className="flex items-center justify-between w-full sm:w-fit mr-4 order-1 sm:order-1">
-        <Logo text={logoText[0].text} />
+        <Logo text={logoText[0]?.text} />
       </div>
       <div className="absolute right-4 top-4 sm:static sm:top-auto sm:right-auto flex items-center gap-4 order-2 sm:order-3">
         {user.ok ? (
