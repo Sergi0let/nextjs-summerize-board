@@ -39,7 +39,7 @@ export default async function RootLayout({
       >
         <Toaster position="bottom-center" />
         <Header data={globalData.data.header} />
-        <div>{children}</div>
+        {children}
         <Footer data={globalData.data.footer} />
       </body>
     </html>

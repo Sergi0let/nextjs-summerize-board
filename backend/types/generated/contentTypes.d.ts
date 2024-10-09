@@ -60,6 +60,39 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiSummarySummary extends Struct.CollectionTypeSchema {
+  collectionName: 'summaries';
+  info: {
+    singularName: 'summary';
+    pluralName: 'summaries';
+    displayName: 'Summary';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    videoId: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    summary: Schema.Attribute.RichText;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::summary.summary'
+    >;
+  };
+}
+
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -534,6 +567,7 @@ export interface PluginUsersPermissionsUser
     bio: Schema.Attribute.Text;
     credits: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     image: Schema.Attribute.Media<'images'>;
+    summaries: Schema.Attribute.Relation<'oneToMany', 'api::summary.summary'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -916,6 +950,7 @@ declare module '@strapi/strapi' {
     export interface ContentTypeSchemas {
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::summary.summary': ApiSummarySummary;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -16,10 +16,23 @@ export async function mutateData(method: string, path: string, payload?: any) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ ...payload }),
+      body:
+        method !== "DELETE" && payload ? JSON.stringify(payload) : undefined,
     });
-    const data = await response.json();
-    return data;
+
+    if (response.status === 204) {
+      return null;
+    }
+
+    // Перевіряємо, чи є відповідь JSON, перш ніж парсити
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      const data = await response.json();
+      return data;
+    }
+
+    // Якщо відповідь не JSON, повертаємо текстове значення
+    return await response.text();
   } catch (error) {
     console.log("error", error);
     throw error;

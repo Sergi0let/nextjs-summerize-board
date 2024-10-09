@@ -40,7 +40,7 @@ export function FeatureSection({
             {feature.map((feature) => (
               <div
                 key={feature.id}
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center bg-white/30 backdrop-blur-lg rounded-xl border border-white/20 p-6 shadow-lg"
               >
                 {getIcon(feature.icon)}
                 <h2 className="mb-4 text-2xl font-bold">{feature.heading}</h2>

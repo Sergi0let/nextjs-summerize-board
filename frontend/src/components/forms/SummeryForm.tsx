@@ -6,7 +6,9 @@ import { toast } from "sonner";
 
 import { SubmitButton } from "@/components/custom/SubmitButton";
 import { Input } from "@/components/ui/input";
+import { createSummaryAction } from "@/data/actions/summary-actions";
 import { generateSummaryService } from "@/data/services/summary-service";
+import { extractYouTubeID } from "@/lib/utils";
 
 interface StrapiErrorsProps {
   message: string | null;
@@ -26,12 +28,61 @@ export function SummaryForm() {
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
+    toast.success("Submitting Form");
 
     const formData = new FormData(event.currentTarget);
     const videoId = formData.get("videoId") as string;
 
+    const processedVideoId = extractYouTubeID(videoId);
+
+    if (!processedVideoId) {
+      toast.error("Invalid Youtube Video ID");
+      setLoading(false);
+      setValue("");
+      setError({
+        ...INITIAL_STATE,
+        message: "Invalid Youtube Video ID",
+        name: "Invalid Id",
+      });
+      return;
+    }
+
+    toast.success("Generating Summary");
+
     const summaryResponseData = await generateSummaryService(videoId);
-    console.log("Response from route handler", summaryResponseData);
+
+    if (summaryResponseData.error) {
+      setValue("");
+      toast.error(summaryResponseData.error);
+      setError({
+        ...INITIAL_STATE,
+        message: summaryResponseData.error,
+        name: "Summary Error",
+      });
+      setLoading(false);
+      return;
+    }
+
+    const payload = {
+      data: {
+        title: `Summary for video: ${processedVideoId}`,
+        videoId: processedVideoId,
+        summary: summaryResponseData.data,
+      },
+    };
+
+    try {
+      await createSummaryAction(payload);
+    } catch {
+      toast.error("Error Creating Summary");
+      setError({
+        ...INITIAL_STATE,
+        message: "Error Creating Summary",
+        name: "Summary Error",
+      });
+      setLoading(false);
+      return;
+    }
 
     toast.success("Summary Created");
     setLoading(false);
