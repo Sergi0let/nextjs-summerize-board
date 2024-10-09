@@ -30,7 +30,6 @@ export function SummaryCardForm({
   item,
   className,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly item: any;
   readonly className?: string;
 }) {

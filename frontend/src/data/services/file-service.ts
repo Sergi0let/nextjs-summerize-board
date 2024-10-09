@@ -11,7 +11,6 @@ export async function fileDeleteService(imageId: string) {
   return data;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function fileUploadService(image: any) {
   const authToken = await getAuthToken();
   if (!authToken) throw new Error("No auth token found");

@@ -4,7 +4,7 @@ import { getUserMeLoader } from "@/data/services/get-user-me-loader";
 
 export default async function AccountRoute() {
   const user = await getUserMeLoader();
-  const userData = user.data;
+  const userData = user?.data;
   const userImage = userData?.image;
 
   return (

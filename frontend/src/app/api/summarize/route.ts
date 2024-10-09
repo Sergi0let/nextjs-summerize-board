@@ -60,7 +60,6 @@ async function generateSummary(content: string, template: string) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformData(data: any[]) {
   let text = "";
 

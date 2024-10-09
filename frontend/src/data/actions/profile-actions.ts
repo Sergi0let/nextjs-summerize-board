@@ -11,7 +11,6 @@ import { mutateData } from "../services/mutate-data";
 
 export async function updateProfileAction(
   userId: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prevState: any,
   formData: FormData
 ) {
@@ -84,7 +83,6 @@ const imageSchema = z.object({
 
 export async function uploadProfileImageAction(
   imageId: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prevState: any,
   formData: FormData
 ) {
@@ -117,7 +115,6 @@ export async function uploadProfileImageAction(
   if (imageId) {
     try {
       await fileDeleteService(imageId);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return {
         ...prevState,

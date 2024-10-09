@@ -49,7 +49,6 @@ async function fetchTranscript(videoId: string, config: YtFetchConfig = {}) {
       });
     }
     return transcriptions;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     throw new YoutubeTranscriptError(e);
   }
@@ -60,14 +59,12 @@ function convertToMs(text: string) {
   return Math.round(float);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseTranscriptEndpoint(document: any, langCode?: string) {
   try {
     // Get all script tags on document page
     const scripts = document.getElementsByTagName("script");
 
     // find the player data script.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const playerScript = scripts.find((script: any) =>
       script.textContent.includes("var ytInitialPlayerResponse = {")
     );
@@ -86,13 +83,11 @@ function parseTranscriptEndpoint(document: any, langCode?: string) {
     let captionTrack = availableCaptions?.[0];
     if (langCode)
       captionTrack =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         availableCaptions.find((track: any) =>
           track.languageCode.includes(langCode)
         ) ?? availableCaptions?.[0];
 
     return captionTrack?.baseUrl;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error(`parseTranscriptEndpoint Error: ${e.message}`);
     return null;

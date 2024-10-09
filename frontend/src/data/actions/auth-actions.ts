@@ -28,7 +28,6 @@ const schemaRegister = z.object({
   }),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function registerUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaRegister.safeParse({
     username: formData.get("username"),
@@ -88,7 +87,6 @@ const schemaLogin = z.object({
     }),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function loginUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaLogin.safeParse({
     identifier: formData.get("identifier"),

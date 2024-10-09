@@ -24,7 +24,6 @@ export async function createSummaryAction(payload: Payload) {
 
 export async function updateSummaryAction(
   id: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prevState: any,
   formData: FormData
 ) {
@@ -66,7 +65,6 @@ export async function updateSummaryAction(
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function deleteSummaryAction(id: string) {
   await mutateData("DELETE", `/api/summaries/${id}`);
   redirect("/dashboard/summaries");
