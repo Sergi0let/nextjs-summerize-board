@@ -119,6 +119,7 @@ export function SummaryForm() {
         />
 
         <SubmitButton
+          className="max-w-11 sm:max-w-max text-xs sm:text-sm"
           text="Create Summary"
           loadingText="Creating Summary"
           loading={loading}

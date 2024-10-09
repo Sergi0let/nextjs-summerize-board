@@ -6,7 +6,7 @@ export default function DashboardLayout({
   readonly children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen grid grid-cols-[240px_1fr]">
+    <div className="pt-28 sm:pt-16 h-screen grid grid-cols-[240px_1fr]">
       <nav className="border-r bg-gray-100/40 dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">

@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 function Loader({ text }: { readonly text: string }) {
@@ -34,7 +34,14 @@ export function SubmitButton({
       disabled={status.pending || loading}
       className={cn(className)}
     >
-      {status.pending || loading ? <Loader text={loadingText} /> : text}
+      {status.pending || loading ? (
+        <Loader text={loadingText} />
+      ) : (
+        <>
+          <Search className="md:mr-2" />
+          <span className="hidden md:inline">{text}</span>
+        </>
+      )}
     </Button>
   );
 }
